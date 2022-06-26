@@ -2,7 +2,7 @@
 
 Decorate things. Find them at runtime.
 
-This is a simple library that lets your create your own decorators. You can use these decorators to tag classes for class members such that you can find them all at runtime.
+This is a simple library that lets you create your own decorators. You can use these decorators to tag classes for class members such that you can find them all at runtime.
 
 ```ts
 // decorators/enemy.ts
