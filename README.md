@@ -27,7 +27,7 @@ class SpiderEnemy extends Enemy {
 }
 ```
 
-Now at runtime you could use `locateEnemties()` to get a collection containing `SnakeEnemy` and `SpiderEnemy` classes.
+Now at runtime you could use `locateEnemies()` to get a collection containing `SnakeEnemy` and `SpiderEnemy` classes.
 
 
 # Installation
