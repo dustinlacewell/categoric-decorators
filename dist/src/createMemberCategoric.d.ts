@@ -9,5 +9,5 @@ export declare type CategoricMemberMeta<T> = {
     members: Record<string, MemberMeta<T>>;
 };
 export declare type CategoricMemberMetas<T> = Map<Constructable, CategoricMemberMeta<T>>;
-export declare const createMemberCategoric: <T>() => readonly [(data?: T | undefined) => (target: Constructable, name: string) => void, <T_1 = undefined>() => CategoricMemberMetas<T_1>, () => any[]];
+export declare const createMemberCategoric: <T>() => readonly [(data?: T | undefined) => (target: Constructable, name: string) => void, <T_1 = undefined>() => CategoricMemberMetas<T_1>, () => CategoricMemberMeta<undefined>[]];
 //# sourceMappingURL=createMemberCategoric.d.ts.map

@@ -62,5 +62,5 @@ export const createMemberCategoric = <T>() => {
         return Reflect.getMetadata(metadataKey, Reflect) || {}
     }
 
-    return [ decorator, locator, () => Object.values(locator()) ] as const
+    return [ decorator, locator, () => Array.from(locator().values()) ] as const
 }

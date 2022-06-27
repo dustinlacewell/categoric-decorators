@@ -28,9 +28,9 @@ var createClassCategoric = function () {
         };
     });
     var locator = function () {
-        return (Reflect.getMetadata(metadataKey, Reflect) || {});
+        return (Reflect.getMetadata(metadataKey, Reflect) || new Map);
     };
-    return [decorator, locator];
+    return [decorator, locator, function () { return Array.from(locator().values()); }];
 };
 exports.createClassCategoric = createClassCategoric;
 //# sourceMappingURL=createClassCategoric.js.map

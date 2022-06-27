@@ -23,7 +23,7 @@ export const createClassCategoric = <
     const decorator = ((data?: T) =>
         (target: Constructable) => {
             // get metas for category
-            const metas: CategoricClassMetas<T> = Reflect.getMetadata(metadataKey, Reflect) || new Map<Constructable, CategoricClassMeta<T>>()
+            const metas: CategoricClassMetas<T> = Reflect.getMetadata(metadataKey, Reflect) || new Map<Constructable, CategoricClassMetas<T>>()
             // get meta for target
             let meta = metas.get(target)
 
@@ -45,8 +45,8 @@ export const createClassCategoric = <
         }) as unknown as D
         
     const locator = (): CategoricClassMetas<T> => {
-        return (Reflect.getMetadata(metadataKey, Reflect) || {}) as CategoricClassMetas<T>
+        return (Reflect.getMetadata(metadataKey, Reflect) || new Map<Constructable, CategoricClassMetas<T>>) as CategoricClassMetas<T>
     }
 
-    return [ decorator, locator ] as const
+    return [ decorator, locator, () => Array.from(locator().values()) ] as const
 }

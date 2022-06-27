@@ -46,7 +46,7 @@ var createMemberCategoric = function () {
     var locator = function () {
         return Reflect.getMetadata(metadataKey, Reflect) || {};
     };
-    return [decorator, locator, function () { return Object.values(locator()); }];
+    return [decorator, locator, function () { return Array.from(locator().values()); }];
 };
 exports.createMemberCategoric = createMemberCategoric;
 //# sourceMappingURL=createMemberCategoric.js.map
