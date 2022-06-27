@@ -13,31 +13,47 @@ export type CategoricMemberMeta<T> = {
     members: Record<string, MemberMeta<T>>
 }
 
-export type CategoricMemberMetas<T> = Record<string, CategoricMemberMeta<T>>
+export type CategoricMemberMetas<T> = 
+    Map<Constructable, CategoricMemberMeta<T>>
 
 export const createMemberCategoric = <T>() => {
     const metadataKey = `categorics:${v4()}`
 
     const decorator = (data?: T) =>
-        (target: any, name: string) => {
+        (target: Constructable, name: string) => {
             // get metas for category
-            const metas: CategoricMemberMetas<T> = Reflect.getMetadata(metadataKey, Reflect) || {}
+            const metas: CategoricMemberMetas<T> = Reflect.getMetadata(metadataKey, Reflect) || new Map<Constructable, CategoricMemberMeta<T>>()
             // get meta for target
-            const meta: Partial<CategoricMemberMeta<T>> = metas[target.name] || {}
-            // get members for target
-            const members: Record<string, MemberMeta<T>> = meta.members || {}
-            // create member metadata
-            const member: Partial<MemberMeta<T>> = members[name] || {}
-            member.target = target
-            member.name = name
-            member.data = data
-            // store member metadata
-            members[name] = member as MemberMeta<T>
-            // store members for target
-            meta.members = members
-            meta.target = target
+            let meta: Partial<CategoricMemberMeta<T>> = metas.get(target) || {}
+
+            if (meta === undefined) {
+                meta = {
+                    target,
+                    members: {
+                        [name]: {
+                            target,
+                            name,
+                            data: data as T
+                        }
+                    }
+                }
+            } else {
+                // get members for target
+                const members: Record<string, MemberMeta<T>> = meta.members || {}
+                // create member metadata
+                const member: Partial<MemberMeta<T>> = members[name] || {}
+                member.target = target
+                member.name = name
+                member.data = data
+                // store member metadata
+                members[name] = member as MemberMeta<T>
+                // store members for target
+                meta.members = members
+                meta.target = target
+            }
+
             // store meta for target
-            metas[target.name] = meta as CategoricMemberMeta<T>
+            metas.set(target, meta as CategoricMemberMeta<T>)
             // store metas for category
             Reflect.defineMetadata(metadataKey, metas, Reflect)
         }
