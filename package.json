@@ -1,5 +1,5 @@
 {
-  "name": "categoric-decorators",
+  "name": "@ldlework/categoric-decorators",
   "version": "1.0.0",
   "description": "",
   "main": "dist/src/index.js",
@@ -11,6 +11,7 @@
   "author": "Dustin Lacewell",
   "license": "ISC",
   "dependencies": {
+    "categoric-decorators": "github:dustinlacewell/categoric-decorators",
     "reflect-metadata": "^0.1.13",
     "uuid": "^8.3.2"
   },
